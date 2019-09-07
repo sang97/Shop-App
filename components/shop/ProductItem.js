@@ -4,24 +4,23 @@ import {
   Text,
   Image,
   StyleSheet,
-  Button,
   TouchableOpacity,
   TouchableNativeFeedback,
   Platform
 } from "react-native";
 
-import Colors from "../../constants/Colors";
+import Card from "../UI/Card";
 
 const ProductItem = props => {
   const TouchableComponent =
     Platform.OS === "android" && Platform.Version >= 21
       ? TouchableNativeFeedback
       : TouchableOpacity;
-  const { imageUrl, title, price, onViewDetail, onAddToCart } = props;
+  const { imageUrl, title, price, onSelect } = props;
   return (
-    <View style={styles.product}>
+    <Card style={styles.product}>
       <View style={styles.touchable}>
-        <TouchableComponent onPress={onViewDetail} useForeground>
+        <TouchableComponent onPress={onSelect} useForeground>
           <View>
             <View style={styles.imageContainer}>
               <Image style={styles.image} source={{ uri: imageUrl }} />
@@ -30,37 +29,19 @@ const ProductItem = props => {
               <Text style={styles.title}>{title}</Text>
               <Text style={styles.price}>${price.toFixed(2)}</Text>
             </View>
-            <View style={styles.buttonContainer}>
-              <Button
-                color={Colors.primary}
-                title="View Details"
-                onPress={onViewDetail}
-              />
-              <Button
-                color={Colors.primary}
-                title="Add To Cart"
-                onPress={onAddToCart}
-              />
-            </View>
+            <View style={styles.buttonContainer}>{props.children}</View>
           </View>
         </TouchableComponent>
       </View>
-    </View>
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
   product: {
-    shadowColor: "black",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 8,
-    elevation: 5,
-    borderRadius: 10,
-    backgroundColor: "white",
     height: 300,
     marginHorizontal: 20,
-    marginTop: 20  
+    marginTop: 20
   },
   touchable: {
     borderRadius: 10,
@@ -79,7 +60,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     alignItems: "center",
-    height: "15%",
+    height: "17%",
     padding: 10
   },
   title: {
@@ -95,7 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    height: "25%",
+    height: "23%",
     paddingHorizontal: 20
   }
 });
