@@ -32,7 +32,7 @@ const productReducer = (state = initalState, action) => {
         title,
         imageUrl,
         description,
-        price
+        Number(price)
       );
 
       return {
@@ -52,7 +52,7 @@ const productReducer = (state = initalState, action) => {
         title,
         imageUrl,
         description,
-        price
+        Number(price)
       );
 
       const updatedUserProducts = [...state.userProducts];
